@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Hardware Specifications | Securo WebStore</title>
+</head>
+<body>
+    <nav>
+        <div><strong>Securo WebStore</strong></div>
+        <div>
+            <a href="home.html">About Us</a>
+            <a href="items.html">Products</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="product-detail-view" class="card" style="display: flex; gap: 40px; padding: 40px;">
+            <div style="flex: 1;">
+                <img id="main-img" src="https://via.placeholder.com/400" alt="Hardware" style="width: 100%; border-radius: 8px;">
+            </div>
+            <div style="flex: 1;">
+                <h1 id="item-name">Loading Hardware...</h1>
+                <p id="item-cat" style="color: #666; font-style: italic;"></p>
+                <h2 id="item-price" style="color: #2c3e50;"></h2>
+                <hr>
+                <p id="item-desc" style="line-height: 1.6;"></p>
+                <p><strong>Security Rating:</strong> <span id="item-rating"></span>/5</p>
+<button class="btn-link" style="width: 100%; margin-top: 20px;">Add to Secure Cart</button>            </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+            <h3>User Ratings & Feedback</h3>
+            <div id="feedback-section">
+                <p>Submit your own rating for this hardware:</p>
+                <select id="user-stars">
+                    <option>5 Stars</option>
+                    <option>4 Stars</option>
+                    <option>3 Stars</option>
+                    <option>2 Stars</option>
+                    <option>1 Star</option>
+                </select>
+                <textarea placeholder="Leave a review..." style="width:100%; height:80px; margin-top:10px;"></textarea>
+                <button style="margin-top:10px;">Post Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="logic.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pid = parseInt(urlParams.get('id'));
+        const item = products.find(p => p.id === pid);
+
+        if (item) {
+            document.title = `${item.name} | Securo WebStore`;
+            document.getElementById('item-name').innerText = item.name;
+            document.getElementById('item-cat').innerText = `Category: ${item.category}`;
+            document.getElementById('item-price').innerText = `$${item.price}.00`;
+            document.getElementById('item-desc').innerText = item.description;
+            document.getElementById('item-rating').innerText = item.rating;
+            document.getElementById('main-img').src = item.img;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Admin Dashboard | Securo WebStore</title>
+</head>
+<body>
+    <nav>
+        <div><strong>Securo WebStore ADMIN</strong></div>
+        <div>
+            <a href="home.html">About Us</a>
+            <a href="profile.html">Admin Profile</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <span class="secure-indicator">🔒 PRIVILEGED ACCESS ONLY</span>
+        
+        <section class="card" style="margin-top: 20px;">
+            <h3>Inventory Monitoring</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Hardware Item</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>001</td><td>GoldKey Security Token</td><td>14</td><td>$45.00</td><td><button>Update</button></td></tr>
+                    <tr><td>002</td><td>Stealth Drive 2TB (SSD)</td><td>24</td><td>$210.00</td><td><button>Update</button></td></tr>
+                    <tr><td>003</td><td>PrivacyGuard Screen</td><td>18</td><td>$35.00</td><td><button>Update</button></td></tr>
+                    <tr><td>004</td><td>SignalShield Faraday Bag</td><td>38</td><td>$25.00</td><td><button>Update</button></td></tr>
+                    <tr><td>005</td><td>CamSlide Pro (3-Pack)</td><td>42</td><td>$12.00</td><td><button>Update</button></td></tr>
+                    <tr><td>006</td><td>NetArmor VPN Router</td><td>11</td><td>$185.00</td><td><button>Update</button></td></tr>
+                    <tr><td>007</td><td>JuiceJail USB Blocker</td><td>37</td><td>$15.00</td><td><button>Update</button></td></tr>
+                    <tr><td>008</td><td>BioLock Fingerprint Padlock</td><td>8</td><td>$65.00</td><td><button>Update</button></td></tr>
+                    <tr><td>009</td><td>Sentinel Hardware Firewall</td><td>30</td><td>$299.00</td><td><button>Update</button></td></tr>
+                    <tr><td>010</td><td>Mic-Lock USB-C</td><td>22</td><td>$18.00</td><td><button>Update</button></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card" style="margin-top: 30px;">
+            <h3>User Account Management</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Customer Name</th>
+                        <th>Access Status</th>
+                        <th>Security Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>USR_9921</td>
+                        <td>Jane Doe</td>
+                        <td><span style="color: green;">● Active</span></td>
+                        <td><button>Reset Password</button> <button style="color: red;">Lock</button></td>
+                    </tr>
+                    <tr>
+                        <td>USR_4410</td>
+                        <td>Alex Smith</td>
+                        <td><span style="color: red;">● Locked</span></td>
+                        <td><button>Reset Password</button> <button style="color: green;">Unlock</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

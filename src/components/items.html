@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Catalog | Securo WebStore</title>
+</head>
+<body>
+    <nav>
+        <div><strong>Securo WebStore</strong></div>
+        <div>
+            <a href="home.html">About Us</a>
+            <a href="items.html">Products</a>
+            <a href="login.html">Login</a>
+            <a href="admin.html">Admin</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header style="margin-bottom: 30px;">
+            <h1>Hardware Catalog</h1>
+            <p>Browse our selection of hardened devices designed to protect your digital experience.</p>
+            
+            <div style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-top: 20px;">
+                <label for="searchBar"><strong>Locate Hardware:</strong></label>
+                <input type="text" id="searchBar" onkeyup="filterProducts()" 
+                       placeholder="Search by name (e.g., 'VPN', 'Token', 'SSD')..." 
+                       style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+        </header>
+
+        <div id="product-grid" class="product-grid">
+            <p style="text-align: center; color: #666;">Initializing catalog...</p>
+        </div>
+    </div>
+
+    <footer style="background: #333; color: white; padding: 40px 20px; margin-top: 50px;">
+        <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 250px;">
+                <h3>Securo WebStore HQ</h3>
+                <p>123 Encryption Way<br>Norfolk, VA 23508</p>
+                <p><em>Open Mon-Fri: 0900 - 1800</em></p>
+            </div>
+            <div style="flex: 1; min-width: 250px;">
+                <h3>Technical Support</h3>
+                <p>Email: ops@securowebstore.com</p>
+                <p>Phone: +1 (757) 555-PRIV</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="logic.js"></script>
+</body>
+</html>

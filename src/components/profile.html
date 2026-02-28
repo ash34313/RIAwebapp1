@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>MySecuro | Securo WebStore</title>
+</head>
+<body>
+    <nav>
+        <div><strong>SecureStore</strong></div>
+        <div>
+            <a href="home.html">About Us</a>
+            <a href="items.html">Products</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+            
+            <div class="card" style="flex: 1; min-width: 300px; text-align: center;">
+                <span class="secure-indicator">✓ Identity Verified</span>
+                <div style="margin: 20px 0;">
+                    <img src="https://via.placeholder.com/150?text=User+Photo" 
+                         alt="Profile Photo" 
+                         style="border-radius: 50%; border: 4px solid var(--primary-mint); width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <h3>Ashley Saunders</h3>
+                <p style="color: #666; margin-bottom: 20px;">Senior Security Specialist</p>
+                
+                <div style="text-align: left; padding: 0 10px;">
+                    <p><strong>Email:</strong> ashley.saunders1@cau.edu</p>
+                    <p><strong>Shipping:</strong> 123 University Drive, Norfolk, VA</p>
+                </div>
+                
+                <button style="width: 100%; margin-top: 15px;">Update Profile Info</button>
+                <button style="width: 100%; margin-top: 10px; background-color: var(--dark-slate); color: white;">Change Password</button>
+            </div>
+
+            <div class="card" style="flex: 2; min-width: 350px;">
+                <h3>Recent Order History</h3>
+                <p style="font-size: 0.9rem; color: #777;">Monitor your hardware shipments and order history.</p>
+                
+                <div style="margin-bottom: 15px;">
+                    <input type="text" id="orderSearch" onkeyup="filterOrders()" 
+                           placeholder="Filter by Order # or Hardware Name..." 
+                           style="width: 100%; padding: 12px; border: 1px solid var(--primary-mint); border-radius: 6px; box-sizing: border-box;">
+                </div>
+                
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Hardware Item</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <tr>
+                            <td>#SEC-8821</td>
+                            <td>StealthDrive 2TB (SSD)</td>
+                            <td>Feb 20, 2026</td>
+                            <td><span style="color: var(--primary-mint); font-weight: bold;">Shipped</span></td>
+                        </tr>
+                        <tr>
+                            <td>#SEC-7750</td>
+                            <td>GoldKey Security Token</td>
+                            <td>Jan 15, 2026</td>
+                            <td><span style="color: #2c3e50;">Delivered</span></td>
+                        </tr>
+                        <tr>
+                            <td>#SEC-6612</td>
+                            <td>CamSlide Pro (3-Pack)</td>
+                            <td>Dec 10, 2025</td>
+                            <td><span style="color: #2c3e50;">Delivered</span></td>
+                        </tr>
+                        <tr>
+                            <td>#SEC-5541</td>
+                            <td>NetArmor VPN Router</td>
+                            <td>Nov 02, 2025</td>
+                            <td><span style="color: #2c3e50;">Delivered</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 25px;">
+                    <button class="btn-link" style="background: transparent; border: 1px solid var(--primary-mint); color: var(--dark-slate);">Download Full Sales Receipt (PDF)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="background-color: var(--dark-slate); color: white; padding: 40px 0; margin-top: 60px;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Securo WebStore Lab. All sessions are encrypted.</p>
+        </div>
+    </footer>
+
+    <script src="logic.js"></script>
+</body>
+</html>
