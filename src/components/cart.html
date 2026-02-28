@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Securo Cart | Securo WebStore</title>
+</head>
+<body>
+    <nav>
+        <div><strong>Securo WebStore</strong></div>
+        <div>
+            <a href="home.html">Home</a>
+            <a href="items.html">Products</a>
+            <a href="profile.html">My Profile</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <span class="secure-indicator">🔒 Encrypted Shopping Session</span>
+        <h1>Your Shopping Cart</h1>
+
+        <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+            
+            <div class="card" style="flex: 2; min-width: 350px;">
+                <h3>Items in Cart</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Hardware Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartTableBody">
+                        <tr>
+                            <td>SignalShield Faraday Bag</td>
+                            <td>$25.00</td>
+                            <td><input type="number" value="1" style="width: 50px; padding: 5px; margin: 0;"></td>
+                            <td>$25.00</td>
+                            <td><button style="background-color: #e74c3c; padding: 5px 10px;">Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>GoldKey Security Token</td>
+                            <td>$45.00</td>
+                            <td><input type="number" value="2" style="width: 50px; padding: 5px; margin: 0;"></td>
+                            <td>$90.00</td>
+                            <td><button style="background-color: #e74c3c; padding: 5px 10px;">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px;">
+                    <button class="btn-link" onclick="location.href='items.html'" style="background: transparent; border: 1px solid var(--primary-mint); color: var(--dark-slate);">Continue Shopping</button>
+                </div>
+            </div>
+
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h3>Order Summary</h3>
+                <div style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Subtotal:</span>
+                        <span>$115.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Shipping:</span>
+                        <span style="color: var(--primary-mint);">FREE</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Est. Tax:</span>
+                        <span>$9.20</span>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-weight: bold; font-size: 1.2rem;">
+                    <span>Total:</span>
+                    <span>$124.20</span>
+                </div>
+                <button style="width: 100%; margin-top: 25px; padding: 15px;">Proceed to Secure Checkout</button>
+                <p style="font-size: 0.75rem; color: #777; text-align: center; margin-top: 15px;">
+                    Guaranteed safe and secure checkout via encrypted gateway.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="background-color: var(--dark-slate); color: white; padding: 40px 0; margin-top: 60px;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Securo WebStore Lab. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
