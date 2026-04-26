@@ -1,16 +1,77 @@
-# React + Vite
+Securo WebStore
+A Hardened Hardware Catalog for Security Professionals.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Securo WebStore is a full-stack Single Page Application (SPA) designed to provide a secure environment for browsing and managing specialized cybersecurity hardware. The platform features a signature Mint Green interface and robust role-based access control.
 
-Currently, two official plugins are available:
+ Tech Stack
+Frontend: React (Vite)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend/BaaS: Supabase (PostgreSQL, Auth)
 
-## React Compiler
+Styling: Custom CSS with Mint Green Variables (#2ecc71)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Deployment: Nginx on Google Cloud Platform (GCP) Compute Engine
 
-## Expanding the ESLint configuration
+ Features
+Hardware Catalog: Dynamic rendering of products fetched directly from a Supabase PostgreSQL database.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Authentication: Secure login via email/password or GitHub OAuth.
+
+Secure Checkout: Integration for order processing and persistence.
+
+Admin Dashboard: Restricted view for authorized personnel providing full CRUD (Create, Read, Update, Delete) capabilities for the hardware inventory.
+
+Identity Verification: User profiles displaying verified status and encrypted order history.
+
+ Local Setup
+Clone the Repository:
+`git clone https://github.com/ash34313/RIAwebapp1.git`
+`cd webapp1`
+
+Install Dependencies:
+`npm install`
+Environment Configuration: Create a .env file in the root directory and add your Supabase credentials: `nano .env`
+Copy and paste your credentials: 
+`VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key`
+
+Run Development Server:
+`npm run dev`
+
+ Cloud Deployment (GCP)
+The application is deployed on a GCP Virtual Machine using an Nginx reverse proxy.
+
+Production Build
+`npm run build`
+# Files are generated in the dist/ directory
+
+Server Configuration
+The VM is configured with the following parameters to ensure proper SPA routing:
+
+Web Server: Nginx
+
+Root Directory: /var/www/html
+
+Routing Logic: try_files $uri $uri/ /index.html;
+
+Network Security
+The deployment utilizes specific GCP Firewall policies to allow external access:
+
+Port 80 (HTTP): Enabled for all incoming traffic (0.0.0.0/0).
+
+Network Tags: The VM instance is tagged with http-server to map the firewall policy correctly.
+
+ Main Project Files & Folders
+- assets/             # Static assets
+- components/         # React components (Navbar, Cart, Admin, etc.)
+- logic.js            # Supabase service layer and CRUD logic
+- styles.css          # Global Mint Green theme
+- App.jsx             # Main routing and state controller
+- main.jsx            # Entry point
+
+ Role-Based Access Control (RBAC)
+Public: Can browse the hardware catalog.
+
+Customer: Can manage profiles and view personal order history.
+
+Admin: Full inventory management rights (CRUD). Restricted to authorized users only.
