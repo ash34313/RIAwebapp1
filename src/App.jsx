@@ -1,35 +1,96 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { supabase } from './supabaseClient';
+import { createOrder } from './components/logic'; 
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import ProductList from './components/ProductList';
+import ProductDetail from './components/ProductDetail';
+import Auth from './components/Auth';
+import Register from './components/Register'; 
+import Profile from './components/Profile';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout'; 
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [session, setSession] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [view, setView] = useState('home');
+
+  const adminEmail = 'ashrensau@gmail.com'; 
+  const isAdmin = session?.user?.email === adminEmail;
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => setSession(session));
+
+    const fetchProducts = async () => {
+      const { data } = await supabase.from('products').select('*');
+      if (data) setProducts(data);
+    };
+
+    fetchProducts();
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setCart([]); 
+    setView('home');
+  };
+
+  const handleOrderComplete = async (address) => {
+    if (!session) {
+      alert("Please login to finalize your security purchase.");
+      setView('auth');
+      return;
+    }
+
+    try {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      await createOrder(session.user.id, cart, total); 
+      setCart([]);
+      alert("Order Securely Placed!");
+      setView('profile');
+    } catch (err) {
+      alert("Transaction Error: " + err.message);
+    }
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar 
+        setView={setView} 
+        cartCount={cart.length} 
+        session={session} 
+        isAdmin={isAdmin} 
+        handleLogout={handleLogout} 
+      />
+      
+      <main className="container">
+        {view === 'home' && <Home setView={setView} />}
+        {view === 'register' && <Register setView={setView} />}
+        {view === 'products' && (
+          <ProductList products={products} addToCart={(p) => setCart([...cart, p])} onViewDetails={(p) => { setSelectedProduct(p); setView('details'); }} />
+        )}
+        {view === 'details' && <ProductDetail product={selectedProduct} addToCart={(p) => setCart([...cart, p])} setView={setView} />}
+        {view === 'auth' && !session && <Auth setView={setView} />}
+        {view === 'profile' && session && <Profile user={session.user} />}
+        {view === 'cart' && <Cart cart={cart} setCart={setCart} setView={setView} />}
+        {view === 'checkout' && <Checkout cart={cart} total={cart.reduce((s, i) => s + i.price, 0)} onOrderComplete={handleOrderComplete} />}
+        
+        {view === 'admin' && isAdmin && <AdminDashboard />}
+      </main>
+
+      <footer>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p>&copy; 2026 Securo WebStore</p>
+        </div>
+      </footer>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
