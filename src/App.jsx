@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { supabase } from './supabaseClient';
-import { createOrder } from './components/logic'; 
+import { createOrder } from './logic';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import ProductList from './components/ProductList';
-import ProductDetail from './components/ProductDetail';
-import Auth from './components/Auth';
-import Register from './components/Register'; 
-import Profile from './components/Profile';
-import Cart from './components/Cart';
-import Checkout from './components/Checkout'; 
-import AdminDashboard from './components/AdminDashboard';
+
+const ProductList = lazy(() => import('./components/ProductList'));
+const ProductDetail = lazy(() => import('./components/ProductDetail'));
+const Auth = lazy(() => import('./components/Auth'));
+const Register = lazy(() => import('./components/Register'));
+const Profile = lazy(() => import('./components/Profile'));
+const Cart = lazy(() => import('./components/Cart'));
+const Checkout = lazy(() => import('./components/Checkout'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+
+const Loading = () => (
+  <div className="container" style={{ textAlign: 'center', padding: '50px' }}>
+    <div className="secure-indicator">Decrypting Secure Interface...</div>
+  </div>
+);
 
 function App() {
   const [session, setSession] = useState(null);
@@ -37,56 +44,48 @@ function App() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setCart([]); 
+    setCart([]);
     setView('home');
   };
 
   const handleOrderComplete = async (address) => {
-    if (!session) {
-      alert("Please login to finalize your security purchase.");
-      setView('auth');
-      return;
-    }
-
+    if (!session) { setView('auth'); return; }
     try {
       const total = cart.reduce((sum, item) => sum + item.price, 0);
-      await createOrder(session.user.id, cart, total); 
+      await createOrder(session.user.id, cart, total);
       setCart([]);
       alert("Order Securely Placed!");
       setView('profile');
-    } catch (err) {
-      alert("Transaction Error: " + err.message);
-    }
+    } catch (err) { alert("Transaction Error: " + err.message); }
   };
 
   return (
     <>
-      <Navbar 
-        setView={setView} 
-        cartCount={cart.length} 
-        session={session} 
-        isAdmin={isAdmin} 
-        handleLogout={handleLogout} 
-      />
+      <Navbar setView={setView} cartCount={cart.length} session={session} isAdmin={isAdmin} handleLogout={handleLogout} />
       
-      <main className="container">
-        {view === 'home' && <Home setView={setView} />}
-        {view === 'register' && <Register setView={setView} />}
-        {view === 'products' && (
-          <ProductList products={products} addToCart={(p) => setCart([...cart, p])} onViewDetails={(p) => { setSelectedProduct(p); setView('details'); }} />
-        )}
-        {view === 'details' && <ProductDetail product={selectedProduct} addToCart={(p) => setCart([...cart, p])} setView={setView} />}
-        {view === 'auth' && !session && <Auth setView={setView} />}
-        {view === 'profile' && session && <Profile user={session.user} />}
-        {view === 'cart' && <Cart cart={cart} setCart={setCart} setView={setView} />}
-        {view === 'checkout' && <Checkout cart={cart} total={cart.reduce((s, i) => s + i.price, 0)} onOrderComplete={handleOrderComplete} />}
-        
-        {view === 'admin' && isAdmin && <AdminDashboard />}
+      <main className="container" role="main">
+        <Suspense fallback={<Loading />}>
+          {view === 'home' && <Home setView={setView} />}
+          {view === 'register' && <Register setView={setView} />}
+          {view === 'products' && (
+            <ProductList 
+              products={products} 
+              addToCart={(p) => setCart([...cart, p])} 
+              onViewDetails={(p) => { setSelectedProduct(p); setView('details'); }} 
+            />
+          )}
+          {view === 'details' && <ProductDetail product={selectedProduct} addToCart={(p) => setCart([...cart, p])} setView={setView} />}
+          {view === 'auth' && !session && <Auth setView={setView} />}
+          {view === 'profile' && session && <Profile user={session.user} />}
+          {view === 'cart' && <Cart cart={cart} setCart={setCart} setView={setView} />}
+          {view === 'checkout' && <Checkout cart={cart} total={cart.reduce((s, i) => s + i.price, 0)} onOrderComplete={handleOrderComplete} />}
+          {view === 'admin' && isAdmin && <AdminDashboard />}
+        </Suspense>
       </main>
 
       <footer>
         <div className="container" style={{ textAlign: 'center' }}>
-          <p>&copy; 2026 Securo WebStore</p>
+          <p>&copy; 2026 Securo WebStore | System Status: Verified</p>
         </div>
       </footer>
     </>

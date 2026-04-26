@@ -1,7 +1,7 @@
 export default function ProductCard({ product, addToCart, onViewDetails }) {
   return (
     <div className="card">
-      <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+      <img src={product.image_url} alt={product.name} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
       <h3>{product.name}</h3>
       <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${product.price.toFixed(2)}</p>
       

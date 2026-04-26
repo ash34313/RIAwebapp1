@@ -1,56 +1,43 @@
-import { useState } from 'react';
-import ProductCard from './ProductCard';
+import React from 'react';
 
-export default function ProductList({ products, addToCart, onViewDetails }) {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+const ProductList = ({ products, addToCart, onViewDetails }) => {
   return (
-    <div className="catalog-container">
-      <header style={{ marginBottom: '30px' }}>
-        <h1>Hardware Catalog</h1>
-        <p>Browse our selection of hardened devices designed to protect your digital experience.</p>
-        
-        <div className="search-container" style={{ background: '#fff', padding: '15px', borderRadius: '8px', border: '1px solid #ddd', marginTop: '20px' }}>
-          <label htmlFor="searchBar"><strong>Locate Hardware:</strong></label>
-          <input 
-            type="text" 
-            id="searchBar" 
-            placeholder="Search by name (e.g., 'VPN', 'Token', 'SSD')..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} 
-            style={{ 
-              width: '100%', 
-              padding: '12px', 
-              marginTop: '10px', 
-              border: '1px solid var(--primary-mint)', 
-              borderRadius: '4px', 
-              boxSizing: 'border-box' 
-            }}
-          />
-        </div>
-      </header>
-
+    <div className="product-page">
+      <h2 className="page-title">Hardware Inventory</h2>
       <div className="product-grid">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((p) => (
-            <ProductCard 
-              key={p.id} 
-              product={p} 
-              addToCart={addToCart} 
-              onViewDetails={onViewDetails} 
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            <img 
+              src={product.image_url} 
+              alt={`Photo of ${product.name} security hardware`} 
+              className="product-image"
+              loading="lazy"
             />
-          ))
-        ) : (
-          <p style={{ textAlign: 'center', color: '#666', gridColumn: '1 / -1', padding: '40px' }}>
-            No hardware found matching "{searchTerm}". Please check your security parameters.
-          </p>
-        )}
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p className="price">${product.price.toFixed(2)}</p>
+              <div className="card-actions">
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => onViewDetails(product)}
+                  aria-label={`View details for ${product.name}`}
+                >
+                  Specs
+                </button>
+                <button 
+                  className="btn-primary" 
+                  onClick={() => addToCart(product)}
+                  aria-label={`Add ${product.name} to cart`}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default ProductList;
