@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.envsrc/image1.img
+.env
+src/image1.img
