@@ -8,6 +8,7 @@ const Home = ({ setView }) => {
           src="/assets/hero-banner.webp" 
           alt="Securo WebStore hero banner showing hardened server hardware" 
           className="hero-image"
+          style={{ width: '100%', height: 'auto', maxHeight: '400px', objectFit: 'cover' }}
         />
         <h1>Defend Your Digital Life</h1>
         <p>Expert-grade physical hardware for digital forensics and network security.</p>
